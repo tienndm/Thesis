@@ -5,9 +5,7 @@ from PIL import Image
 from transformers import *
 from tqdm import tqdm
 import urllib.parse as parse
-import cv2
 from deep_translator import GoogleTranslator 
-from termcolor import colored
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -30,12 +28,13 @@ class Predict:
         elif os.path.exists(imagePath):
             return Image.open(imagePath)
 
-    def getCaption(self,imagePath):
+    def getCaption(self,imagePath,langMode):
         img = self.loadImage(imagePath)
         img = self.finetunedImageProcessor(img,return_tensors="pt").to(device)
         output = self.finetunedModel.generate(**img)
         caption = self.finetunedTokenizer.batch_decode(output,skip_special_tokens=True)[0]
-        caption = self.translate(caption)
+        if langMode == 1:
+            caption = self.translate(caption)
         return caption
     
     def translate(self,text):

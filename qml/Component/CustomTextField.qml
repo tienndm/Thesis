@@ -24,8 +24,6 @@ TextField {
                                    }
     }
 
-    
-
     implicitWidth: componentWidth
     implicitHeight: 40
     placeholderText: qsTr("Type something")

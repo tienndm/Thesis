@@ -94,6 +94,21 @@ ApplicationWindow{
 
     }
 
+    Rectangle{
+        width: 200
+        height: 30
+        color: "transparent"
+        border.width:1 
+        border.color: "gray"
+        anchors{
+            top: parent.top
+            topMargin: 40
+            right: parent.right
+            rightMargin: 5
+        }
+        LangCombo{}
+    }
+
     CustomButtonImage{
         id: btnLoadFolder
         anchors{

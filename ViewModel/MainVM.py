@@ -15,7 +15,8 @@ class MainWindowVM(QObject):
         self.engine = _engine
 
         self.path_image = TwoWayBindingParam("")
-        
+        self.selection = TwoWayBindingParam(0)
+
         self.initDefaultParam()
 
         self.predictEngine = Predict()
@@ -23,6 +24,8 @@ class MainWindowVM(QObject):
 
     def initDefaultParam(self):
         self.engine.rootContext().setContextProperty("pathImage", self.path_image)
+        self.engine.rootContext().setContextProperty("langMode", self.selection)
+
 
     @QtCore.pyqtSlot(str)
     def setPathImage(self,_value):
@@ -45,8 +48,13 @@ class MainWindowVM(QObject):
                 print('Please load an image')
                 self.approvalSignal.emit(False)
 
+    @QtCore.pyqtSlot(int)
+    def handlePrediction(self,_value):
+        self.selection = _value
+        print(_value)
+
     @QtCore.pyqtSlot()
     def handlePredictButton(self):
         print('Enter predict mode')
-        res = self.predictEngine.getCaption(self.imageDir)
+        res = self.predictEngine.getCaption(self.imageDir,self.selection)
         self.msgSignal.emit(res)

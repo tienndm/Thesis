@@ -64,6 +64,7 @@ Item{
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         renderType: Text.NativeRendering
+        wrapMode: Text.WordWrap
 
         function formatText() {
             var sentences = text.split(". ")
